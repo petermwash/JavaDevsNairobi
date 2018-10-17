@@ -1,7 +1,9 @@
-package pemwa.com.javadevsnairobi;
+package pemwa.com.javadevsnairobi.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import pemwa.com.javadevsnairobi.R;
 
 public class MainActivity extends AppCompatActivity {
 
