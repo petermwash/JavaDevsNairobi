@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Java Devs Nairobi</string>
+    <string name="repo_count">Repo count</string>
+    <string name="username">Username</string>
 </resources>
