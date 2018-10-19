@@ -2,4 +2,9 @@
     <string name="app_name">Java Devs Nairobi</string>
     <string name="repo_count">Repo count</string>
     <string name="username">Username</string>
+    <string name="petermwash">petermwash</string>
+    <string name="andela">Andela</string>
+    <string name="https_github_com_petermwash">https://github.com/petermwash</string>
+    <string name="_98_repository">98 repository</string>
+    <string name="_102_followers">102 Followers</string>
 </resources>
