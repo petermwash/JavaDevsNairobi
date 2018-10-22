@@ -1,4 +1,4 @@
-package pemwa.com.javadevsnairobi.activity;
+package pemwa.com.javadevsnairobi.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
