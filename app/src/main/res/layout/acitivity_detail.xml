@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/userProfile"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ppic" />
+            <ImageView
+                android:id="@+id/share"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="15dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/share"
+                android:tint="@color/colorBlack" />
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/back"
+                android:tint="@color/colorBlack" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/userProfile"
+                android:text="@string/petermwash"
+                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:padding="15dp"
+                android:id="@+id/userName"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/andela"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:id="@+id/userOrganisation"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/https_github_com_petermwash"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:id="@+id/userGithubLink"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_98_repository"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:id="@+id/userRepos"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/_102_followers"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:id="@+id/userFollowers"
+            />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
