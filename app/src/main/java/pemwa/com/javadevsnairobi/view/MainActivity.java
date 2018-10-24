@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import pemwa.com.javadevsnairobi.R;
+import pemwa.com.javadevsnairobi.presenter.GithubPresenter;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private static final String TAG = "MainActivity" ;
     CardView click;
 
     @Override
@@ -34,5 +37,11 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(null);
+
+        GithubPresenter githubPresenter = new GithubPresenter();
+
+        // Maybe it's best to call it on onResume()
+        Log.i(TAG, "onCreate: before get");
+        githubPresenter.getGithubUsers();
     }
 }
