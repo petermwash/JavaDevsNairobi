@@ -1,9 +1,12 @@
 package pemwa.com.javadevsnairobi.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class GithubUsers {
+public class GithubUsers implements Parcelable {
 
     @SerializedName("login")
     @Expose
@@ -32,6 +35,26 @@ public class GithubUsers {
         this.followers = followers;
         this.repos = repos;
     }
+
+    private GithubUsers(Parcel in) {
+        userName = in.readString();
+        profilePic = in.readString();
+        url = in.readString();
+        followers = in.readString();
+        repos = in.readString();
+    }
+
+    public static final Parcelable.Creator<GithubUsers> CREATOR = new Creator<GithubUsers>() {
+        @Override
+        public GithubUsers createFromParcel(Parcel source) {
+            return new GithubUsers(source);
+        }
+
+        @Override
+        public GithubUsers[] newArray(int size) {
+            return new GithubUsers[size];
+        }
+    };
 
     public String getUserName() {
         return userName;
@@ -71,5 +94,19 @@ public class GithubUsers {
 
     public void setRepos(String repos) {
         this.repos = repos;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userName);
+        dest.writeString(profilePic);
+        dest.writeString(url);
+        dest.writeString(followers);
+        dest.writeString(repos);
     }
 }
