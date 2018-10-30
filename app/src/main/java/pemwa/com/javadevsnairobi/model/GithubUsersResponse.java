@@ -10,11 +10,13 @@ public class GithubUsersResponse {
 
     @SerializedName("items")
     @Expose
-    ArrayList<GithubUsers> users;
+    private ArrayList<GithubUsers> users;
 
     @SerializedName("total_count")
     @Expose
     private String total_count;
+
+    public GithubUsersResponse(){}
 
     public GithubUsersResponse(ArrayList<GithubUsers> users, String total_count) {
         this.users = users;

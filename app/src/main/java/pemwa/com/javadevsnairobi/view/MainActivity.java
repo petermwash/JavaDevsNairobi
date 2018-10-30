@@ -1,47 +1,96 @@
 package pemwa.com.javadevsnairobi.view;
 
-import android.content.Intent;
+import android.app.ProgressDialog;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
+
+import java.util.ArrayList;
 
 import pemwa.com.javadevsnairobi.R;
+import pemwa.com.javadevsnairobi.adapter.GithubAdapter;
+import pemwa.com.javadevsnairobi.model.GithubUsers;
 import pemwa.com.javadevsnairobi.presenter.GithubPresenter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements UsersView{
 
+    private static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
-    private static final String TAG = "MainActivity" ;
-    CardView click;
+    private GithubAdapter adapter;
+    ArrayList<GithubUsers> githubUsersArrayList;
+    UsersPresenterView usersPresenterView;
+    ProgressDialog progressDialog;
+    LinearLayoutManager linearLayoutManager;
+    Parcelable parcelable;
+    final String USERS_KEY = "users";
+    public final static String RECYCLER_VIEW_STATE_KEY = "recycler_view_state";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        click = findViewById(R.id.card);
-
-        click.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent details = new Intent(MainActivity.this, DetailActivity.class);
-                startActivity(details);
-            }
-        });
+        progressDialog = new ProgressDialog(MainActivity.this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
 
         recyclerView = findViewById(R.id.customRecyclerView);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(null);
+        usersPresenterView = new GithubPresenter(this);
+        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
 
-        GithubPresenter githubPresenter = new GithubPresenter();
+        if (savedInstanceState != null) {
+            githubUsersArrayList = new ArrayList<>();
+            this.githubUsersArrayList = savedInstanceState.getParcelableArrayList(USERS_KEY);
+            Log.d(TAG, "onCreate: savedisnt null"+githubUsersArrayList);
+            displayGithubUsers(githubUsersArrayList);
+        }else {
+            usersPresenterView.getGithubUsers();
+        }
+    }
 
-        // Maybe it's best to call it on onResume()
-        Log.i(TAG, "onCreate: before get");
-        githubPresenter.getGithubUsers();
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (parcelable != null) {
+            linearLayoutManager.onRestoreInstanceState(parcelable);
+        }
+        Log.i(TAG, "onResume is called");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putParcelableArrayList(USERS_KEY, this.githubUsersArrayList);
+
+        parcelable = linearLayoutManager.onSaveInstanceState();
+        savedInstanceState.putParcelable(RECYCLER_VIEW_STATE_KEY, parcelable);
+        Log.i(TAG, "onSaveInstanceState is called");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null){
+            parcelable = savedInstanceState.getParcelable(RECYCLER_VIEW_STATE_KEY);
+        }
+        Log.i(TAG, "onRestoreInstanceState is called");
+    }
+
+    @Override
+    public void displayGithubUsers(ArrayList<GithubUsers> usersArrayList) {
+
+        progressDialog.dismiss();
+
+        githubUsersArrayList = usersArrayList;
+        adapter = new GithubAdapter(usersArrayList, getApplicationContext());
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapter.notifyDataSetChanged();
     }
 }

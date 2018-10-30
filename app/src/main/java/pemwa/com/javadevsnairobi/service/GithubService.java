@@ -12,7 +12,7 @@ public class GithubService {
     private static final String BASE_URL = "https://api.github.com/";
 
 
-    public GithubAPI getGithubAPI() {
+    public static GithubAPI getGithubAPI() {
         Gson gson = new GsonBuilder().setLenient().create();
 
         if (retrofit == null) {
