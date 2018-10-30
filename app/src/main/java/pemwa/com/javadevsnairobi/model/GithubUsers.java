@@ -36,7 +36,7 @@ public class GithubUsers implements Parcelable {
         this.repos = repos;
     }
 
-    private GithubUsers(Parcel in) {
+    protected GithubUsers(Parcel in) {
         userName = in.readString();
         profilePic = in.readString();
         url = in.readString();

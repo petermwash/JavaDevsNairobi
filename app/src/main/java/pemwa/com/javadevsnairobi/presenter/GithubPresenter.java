@@ -7,22 +7,27 @@ import java.util.ArrayList;
 import pemwa.com.javadevsnairobi.model.GithubUsers;
 import pemwa.com.javadevsnairobi.model.GithubUsersResponse;
 import pemwa.com.javadevsnairobi.service.GithubService;
+import pemwa.com.javadevsnairobi.view.UsersPresenterView;
+import pemwa.com.javadevsnairobi.view.UsersView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
-public class GithubPresenter {
+public class GithubPresenter implements UsersPresenterView {
 
     private GithubService githubService;
+    private UsersView usersView;
 
-    public GithubPresenter() {
+    public GithubPresenter(UsersView usersView) {
+        this.usersView = usersView;
         if (this.githubService == null) {
             this.githubService = new GithubService();
         }
     }
 
+    @Override
     public void getGithubUsers() {
         githubService
                 .getGithubAPI()
@@ -35,6 +40,7 @@ public class GithubPresenter {
 
                             if (users != null) {
                                 Log.i(TAG, "onResponse: there is some data received");
+                                usersView.displayGithubUsers(users);
                             }
                         }
                     }
