@@ -3,6 +3,7 @@ package pemwa.com.javadevsnairobi.view;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +20,7 @@ import pemwa.com.javadevsnairobi.presenter.DetailPresenter;
 public class DetailActivity extends AppCompatActivity implements DetailView {
 
     ImageView profileImage;
+    ImageView share;
     TextView username;
     TextView company;
     TextView url;
@@ -114,5 +116,24 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         repo.setText(repos);
         followers.setText(_followers);
 
+        share = findViewById(R.id.share);
+
+        onClickShare();
+    }
+
+    public void onClickShare() {
+
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String message = "Check out this awesome developer @" + userName + ", " + urlData + ".";
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT, message);
+                startActivity(intent);
+            }
+        });
     }
 }
