@@ -16,15 +16,15 @@ public class GithubUsers implements Parcelable {
     @Expose
     private String profilePic;
 
-    @SerializedName("url")
+    @SerializedName("html_url")
     @Expose
     private String url;
 
-    @SerializedName("followers_url")
+    @SerializedName("followers")
     @Expose
     private String followers;
 
-    @SerializedName("repos_url")
+    @SerializedName("public_repos")
     @Expose
     private String repos;
 
