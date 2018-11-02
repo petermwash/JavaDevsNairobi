@@ -132,7 +132,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra(Intent.EXTRA_TEXT, message);
-                startActivity(intent);
+                startActivity(Intent.createChooser(intent, "Share user profile via..."));
             }
         });
     }
