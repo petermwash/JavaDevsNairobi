@@ -31,14 +31,14 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.CustomView
 
         ImageView profPic;
         TextView userName;
-        TextView repos;
+        TextView link;
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
 
             profPic = itemView.findViewById(R.id.profImage);
             userName = itemView.findViewById(R.id.username);
-            repos = itemView.findViewById(R.id.repoCount);
+            link = itemView.findViewById(R.id.link);
         }
     }
 
@@ -53,8 +53,9 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.CustomView
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder customViewHolder, int position) {
+
         customViewHolder.userName.setText(githubUsersArrayList.get(position).getUserName());
-        customViewHolder.repos.setText(githubUsersArrayList.get(position).getRepos());
+        customViewHolder.link.setText(githubUsersArrayList.get(position).getUrl());
 
         Picasso.Builder builder = new Picasso.Builder(context);
         builder.downloader(new OkHttp3Downloader(context));
