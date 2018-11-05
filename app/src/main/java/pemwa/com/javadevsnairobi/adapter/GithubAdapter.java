@@ -38,7 +38,7 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.CustomView
 
             profPic = itemView.findViewById(R.id.profImage);
             userName = itemView.findViewById(R.id.username);
-            link = itemView.findViewById(R.id.link);
+            link = itemView.findViewById(R.id.profileurl);
         }
     }
 

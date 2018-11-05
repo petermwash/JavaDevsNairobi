@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements UsersView, SwipeR
     public void displayGithubUsers(ArrayList<GithubUsers> usersArrayList) {
 
         progressDialog.dismiss();
+        swipeRefreshLayout.setRefreshing(false);
 
         githubUsersArrayList = usersArrayList;
         adapter = new GithubAdapter(usersArrayList, getApplicationContext());

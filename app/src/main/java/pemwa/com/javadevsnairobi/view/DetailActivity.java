@@ -3,7 +3,6 @@ package pemwa.com.javadevsnairobi.view;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
-import android.content.Intent;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
