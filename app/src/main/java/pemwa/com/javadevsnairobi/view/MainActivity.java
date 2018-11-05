@@ -3,9 +3,10 @@ package pemwa.com.javadevsnairobi.view;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +18,7 @@ import pemwa.com.javadevsnairobi.adapter.GithubAdapter;
 import pemwa.com.javadevsnairobi.model.GithubUsers;
 import pemwa.com.javadevsnairobi.presenter.GithubPresenter;
 
-public class MainActivity extends AppCompatActivity implements UsersView {
+public class MainActivity extends AppCompatActivity implements UsersView, SwipeRefreshLayout.OnRefreshListener{
 
     private static final String TAG = "MainActivity";
     private RecyclerView recyclerView;
@@ -25,8 +26,9 @@ public class MainActivity extends AppCompatActivity implements UsersView {
     ArrayList<GithubUsers> githubUsersArrayList;
     UsersPresenterView usersPresenterView;
     ProgressDialog progressDialog;
-    LinearLayoutManager linearLayoutManager;
+    GridLayoutManager gridLayoutManager;
     Parcelable parcelable;
+    SwipeRefreshLayout swipeRefreshLayout;
     final String USERS_KEY = "users";
     public final static String RECYCLER_VIEW_STATE_KEY = "recycler_view_state";
 
@@ -36,13 +38,20 @@ public class MainActivity extends AppCompatActivity implements UsersView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setColorSchemeResources(
+                R.color.colorPrimaryDark,
+                R.color.colorPrimary,
+                R.color.colorAccent);
+
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
 
         recyclerView = findViewById(R.id.customRecyclerView);
         usersPresenterView = new GithubPresenter(this);
-        linearLayoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        gridLayoutManager = new GridLayoutManager(this, 2);
 
         if (savedInstanceState != null) {
 //            githubUsersArrayList = new ArrayList<>();
@@ -58,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements UsersView {
         super.onResume();
 
         if (parcelable != null) {
-            linearLayoutManager.onRestoreInstanceState(parcelable);
+            gridLayoutManager.onRestoreInstanceState(parcelable);
         }
         Log.i(TAG, "onResume is called");
     }
@@ -68,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements UsersView {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putParcelableArrayList(USERS_KEY, this.githubUsersArrayList);
 
-        parcelable = linearLayoutManager.onSaveInstanceState();
+        parcelable = gridLayoutManager.onSaveInstanceState();
         savedInstanceState.putParcelable(RECYCLER_VIEW_STATE_KEY, parcelable);
         Log.i(TAG, "onSaveInstanceState is called");
     }
@@ -91,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements UsersView {
         githubUsersArrayList = usersArrayList;
         adapter = new GithubAdapter(usersArrayList, getApplicationContext());
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(gridLayoutManager);
         adapter.notifyDataSetChanged();
 
         lauchUserDetails();
@@ -112,5 +121,10 @@ public class MainActivity extends AppCompatActivity implements UsersView {
                 startActivity(intent);
             }
         }));
+    }
+
+    @Override
+    public void onRefresh() {
+        usersPresenterView.getGithubUsers();
     }
 }

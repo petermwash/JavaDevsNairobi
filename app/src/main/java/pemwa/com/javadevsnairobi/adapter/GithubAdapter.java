@@ -47,7 +47,7 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.CustomView
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
-        View view = layoutInflater.inflate(R.layout.custom_row, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.custom_grid, viewGroup, false);
         return new CustomViewHolder(view);
     }
 
