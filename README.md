@@ -5,18 +5,6 @@
 # JavaDevsNairobi
 This is an Android app to retrieve a list of Java Developers in Nairobi using the [Github API](https://developer.github.com/v3/search/#search-users).
 
-## Screenshots for mock-ups
-
-The mock-ups below are created using the Justinmind wire-framing tool. I chose to use this tool since it has almost every prototype created from a default template, within which default styles have been defined for all UI elements, such as text boxes and data lists and grids. These makes it easy to modify to meet my needs.
-
-![The main screen](wireframes/Mainscreen.png "main screen")
-
-
-![The details screen](wireframes/Detailscreen.png "details screen")
-
-![The share screen](wireframes/share.png "share screen")
-
-
 ## Getting Started
 
 To run this app on you machine, ensure that you have Android Studio installed, then follow the steps below to get it working.
@@ -29,3 +17,14 @@ To run this app on you machine, ensure that you have Android Studio installed, t
 
 - To run tests and generate code coverage report, just run the following command on your terminal `./gradlew clean jacocoTestReport`.
 - Then you can navigate to the directory `app/build/reports/coverage/debug/` and open the `index.html` file on your browser to see the coverage report.
+
+## Screenshots for mock-ups
+
+The mock-ups below are created using the Justinmind wire-framing tool. I chose to use this tool since it has almost every prototype created from a default template, within which default styles have been defined for all UI elements, such as text boxes and data lists and grids. These makes it easy to modify to meet my needs.
+
+![The main screen](wireframes/Mainscreen.png "main screen")
+
+
+![The details screen](wireframes/Detailscreen.png "details screen")
+
+![The share screen](wireframes/share.png "share screen")
