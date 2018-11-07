@@ -6,6 +6,7 @@ jobs:
       - image: circleci/android:api-28-alpha
     environment:
       JVM_OPTS: -Xmx3200m
+      CC_TEST_REPORTER_ID: 5293fd1bedc88e4873039c89e170820150d832f09b65d2be6c2c9180936a828b
     steps:
       - checkout
       - restore_cache:
