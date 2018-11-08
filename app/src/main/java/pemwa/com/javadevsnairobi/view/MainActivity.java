@@ -3,6 +3,7 @@ package pemwa.com.javadevsnairobi.view;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import pemwa.com.javadevsnairobi.R;
 import pemwa.com.javadevsnairobi.adapter.GithubAdapter;
 import pemwa.com.javadevsnairobi.model.GithubUsers;
 import pemwa.com.javadevsnairobi.presenter.GithubPresenter;
+import pemwa.com.javadevsnairobi.util.NetworkUtility;
 
 public class MainActivity extends AppCompatActivity implements UsersView, SwipeRefreshLayout.OnRefreshListener{
 
@@ -29,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements UsersView, SwipeR
     GridLayoutManager gridLayoutManager;
     Parcelable parcelable;
     SwipeRefreshLayout swipeRefreshLayout;
-    final String USERS_KEY = "users";
-    public final static String RECYCLER_VIEW_STATE_KEY = "recycler_view_state";
+    public static final String USERS_KEY = "users";
+    public static final String RECYCLER_VIEW_STATE_KEY = "recycler_view_state";
 
 
     @Override
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements UsersView, SwipeR
 
         progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         recyclerView = findViewById(R.id.customRecyclerView);
@@ -54,10 +57,19 @@ public class MainActivity extends AppCompatActivity implements UsersView, SwipeR
         gridLayoutManager = new GridLayoutManager(this, 2);
 
         if (savedInstanceState != null) {
-//            githubUsersArrayList = new ArrayList<>();
+            githubUsersArrayList = new ArrayList<>();
             githubUsersArrayList = savedInstanceState.getParcelableArrayList(USERS_KEY);
             displayGithubUsers(githubUsersArrayList);
         } else {
+            loadUsers();
+        }
+    }
+
+    public void loadUsers() {
+        if (!(NetworkUtility.isConnected(this))) {
+            progressDialog.dismiss();
+            showSnackBar();
+        }else {
             usersPresenterView.getGithubUsers();
         }
     }
@@ -104,10 +116,10 @@ public class MainActivity extends AppCompatActivity implements UsersView, SwipeR
         recyclerView.setLayoutManager(gridLayoutManager);
         adapter.notifyDataSetChanged();
 
-        lauchUserDetails();
+        launchUserDetails();
     }
 
-    public void lauchUserDetails() {
+    public void launchUserDetails() {
         recyclerView.addOnItemTouchListener(new ItemClickView(getApplicationContext(), new ItemClickView.onItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -127,5 +139,19 @@ public class MainActivity extends AppCompatActivity implements UsersView, SwipeR
     @Override
     public void onRefresh() {
         usersPresenterView.getGithubUsers();
+    }
+
+    private void showSnackBar() {
+        Snackbar.make(
+                findViewById(R.id.snackbar),
+                "Failed to load users!",
+                Snackbar.LENGTH_LONG)
+                .setAction("TAP TO RETRY", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loadUsers();
+                    }
+                })
+                .show();
     }
 }

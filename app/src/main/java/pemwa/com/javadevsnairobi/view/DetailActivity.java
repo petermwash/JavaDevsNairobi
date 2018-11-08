@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     ProgressDialog progressDialog;
 
-    final String USER_KEY = "user";
+    static final String USER_KEY = "user";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
         progressDialog = new ProgressDialog(DetailActivity.this);
         progressDialog.setMessage("Loading...");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         detailPresenterView = new DetailPresenter(this);
@@ -85,11 +86,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         super.onSaveInstanceState(savedInstanceState);
 
         savedInstanceState.putParcelable(USER_KEY, userDetails);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
