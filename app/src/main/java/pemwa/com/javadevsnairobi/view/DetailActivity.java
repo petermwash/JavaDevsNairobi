@@ -89,11 +89,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
     public void displayUserDetail(UserDetails user) {
 
         progressDialog.dismiss();
