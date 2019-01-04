@@ -19,7 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.DetailActivity"></activity>
+        <activity
+            android:name=".view.DetailActivity"
+            android:label="User Details"
+            ></activity>
     </application>
 
 </manifest>
